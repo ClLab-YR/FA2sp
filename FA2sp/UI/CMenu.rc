@@ -79,7 +79,8 @@ POPUP "Map tools"
 	MENUITEM "Search Waypoint\tCtrl+W",  40133
 	MENUITEM "Navigate to coordinate\tCtrl+Shift+F", 40134
 	MENUITEM SEPARATOR
-	MENUITEM "Tool Scripts",  40135
+	// MENUITEM "Tool Scripts",  40135
+	MENUITEM "Run Python Script",  10240
 }
 POPUP "Online"
 {

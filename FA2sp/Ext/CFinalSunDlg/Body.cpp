@@ -60,6 +60,10 @@ BOOL CFinalSunDlgExt::OnCommandExt(WPARAM wParam, LPARAM lParam)
 
 	switch (wmID)
 	{
+	case 10240:
+		// TODO: call embedded python
+		MessageBox("Watermelon like cat head");
+		return TRUE;
 	case 30000:
 		SetLayerStatus(30000, CIsoViewExt::DrawStructures);
 		return TRUE;

@@ -167,6 +167,7 @@ DEFINE_HOOK(43209D, CFinalSunDlg_Update_TranslateMenuItems, A)
     translateMenuItem(40133, "Menu.MapTools.SearchWaypoint");
     translateMenuItem(40134, "Menu.MapTools.NavigateCoordinate");
     translateMenuItem(40135, "Menu.MapTools.ToolScripts");
+    translateMenuItem(10240, "Menu.MapTools.RunPythonScript");
 
     translateSubMenu(i++, "Menu.Online");
     translateMenuItem(33000, "Menu.Online.FA2sp");

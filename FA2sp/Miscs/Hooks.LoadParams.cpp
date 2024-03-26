@@ -183,6 +183,20 @@ DEFINE_HOOK(441910, Miscs_LoadParams_TutorialTexts, 7)
     return 0;
 }
 
+// too violent (
+DEFINE_HOOK(4448F0, Miscs_LoadParams_Countries, 7)
+{
+    GET_STACK(bool, useCountry, 0xC);
+    GET_STACK(bool, showIndex, 0x8);
+    GET_STACK(ppmfc::CComboBox*, pComboBox, 0x4);
+
+    // pComboBox->DeleteAllStrings(); no need since helpers would do it again
+    auto loader = useCountry ? ControlHelpers::ComboBox::LoadCountries : ControlHelpers::ComboBox::LoadHouses;
+
+    loader(*pComboBox, showIndex);
+    return 0x445B22;
+}
+
 DEFINE_HOOK(441A40, Miscs_LoadParams_Triggers, 6)
 {
     GET_STACK(ppmfc::CComboBox*, pComboBox, 0x4);

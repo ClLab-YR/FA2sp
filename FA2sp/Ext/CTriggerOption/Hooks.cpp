@@ -2,6 +2,7 @@
 
 #include <Helpers/Macro.h>
 
+#include "../../Helpers/ControlHelpers.h"
 #include "../../Helpers/Translations.h"
 
 DEFINE_HOOK(502E66, CTriggerOption_OnInitDialog_RepeatTypeFix, 7)
@@ -16,4 +17,9 @@ DEFINE_HOOK(502E66, CTriggerOption_OnInitDialog_RepeatTypeFix, 7)
     pThis->CCBRepeatType.AddString(Translations::TranslateOrDefault("TriggerRepeatType.RepeatingOr", "2 - Repeating OR"));
 
     return 0;
+}
+
+DEFINE_HOOK(501EAD, CTriggerOption_OnCBHouseSelChanged, 5)
+{
+    return 0x501EB2;
 }

@@ -81,7 +81,8 @@ bool CLoadingExt::InitMixFilesFix()
 	};
 
 	// Init_Bootstrap_Mixfiles
-	ppmfc::CString format = "EXPAND" + CINI::FAData->GetString("Filenames", "MixExtension", "MD") + "%02d.MIX";
+	ppmfc::CString format = CINI::FAData->GetString("Filenames", "ExpansionMix", "expandmd__.mix");
+	format.Replace("__", "%02d");
 	for (int i = 99; i >= 0; --i)
 	{
 		ppmfc::CString filename; 

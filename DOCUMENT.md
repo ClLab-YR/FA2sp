@@ -195,7 +195,7 @@ Now this feature supports RaiseSingleTile/LowerSingleTile (though they are not "
         - `UrbanNYR = FILENAME`
         - `LunarYR = FILENAME`
         - `DesertYR = FILENAME`
-        - `MixExtension = FILENAME SUFFIX`
+        - `ExpansionMix = FILENAME FORMAT (with digits replaced with "__")`
         ```ini
         EVAYR=evamp.ini
         SoundYR=soundmp.ini
@@ -209,7 +209,7 @@ Now this feature supports RaiseSingleTile/LowerSingleTile (though they are not "
         UrbanNYR=urbannmp.ini
         LunarYR=lunarmp.ini
         DesertYR=desertmp.ini
-        MixExtension=mp
+        ExpansionMix=expandmp__.mix
         ```
     - `[ScriptTypeLists]`
         - Contains a list of param type lists

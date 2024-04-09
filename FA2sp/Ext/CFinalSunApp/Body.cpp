@@ -130,6 +130,7 @@ BOOL CFinalSunAppExt::InitInstanceExt()
 
 	// Process file path
 	FA2sp::Buffer = this->InstallPath;
+	FA2sp::Buffer.Replace("/", "\\");  // fix path connected with '/' couldn't load - -
 	FA2sp::Buffer.SetAt(FA2sp::Buffer.ReverseFind('\\') + 1, '\0');
 	strcpy_s(CFinalSunApp::FilePath, 260, FA2sp::Buffer);
 	

@@ -46,9 +46,9 @@ DEFINE_HOOK(428D97, CFinalSunDlg_SaveMap, 7)
     pThis->MyViewFrame.StatusBar.SetWindowText("Saving...");
     pThis->MyViewFrame.StatusBar.UpdateWindow();
 
-    ppmfc::CString buffer;
+    /*ppmfc::CString buffer;
     buffer.Format("%d", pINI->GetInteger("FA2spVersionControl", "Version") + 1);
-    pINI->WriteString("FA2spVersionControl", "Version", buffer);
+    pINI->WriteString("FA2spVersionControl", "Version", buffer);*/
 
     Logger::Raw("SaveMap : Now removing empty sections and keys.\n");
     std::vector<ppmfc::CString> sectionsToRemove;

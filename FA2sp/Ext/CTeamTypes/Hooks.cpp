@@ -7,6 +7,7 @@
 #include <CLoading.h>
 
 #include "../../Helpers/STDHelpers.h"
+#include "../../Helpers/Translations.h"
 
 #include "../../FA2sp.h"
 
@@ -67,15 +68,26 @@ DEFINE_HOOK(4E7900, CTeamTypes_OnCBCurrentTeamSelectChanged, 7)
 			GetNamedString(pThis->CString_Script, "Script", "ScriptTypes");
 			GetNamedString(pThis->CString_TaskForce, "TaskForce", "TaskForces");
 			
+			ppmfc::CString noneTrans = "None";
+
 			if (auto ppStr = pINI->TryGetString(ID, "Tag"))
 			{
 				pThis->CString_Tag = *ppStr;
 				auto tagcontent = STDHelpers::SplitString(pINI->GetString("Tags", ID));
 				if (tagcontent.size() >= 2)
 					pThis->CString_Tag += " (" + tagcontent[1] + ")";
+				if (pThis->CString_Tag == noneTrans)  // fix the former occurrance
+				{
+					Translations::GetTranslationItem("None", noneTrans);
+					pThis->CString_Tag = noneTrans;
+					pINI->DeleteKey(ID, "Tag");
+				}
 			}
 			else
-				pThis->CString_Tag = "None";
+			{
+				Translations::GetTranslationItem("None", noneTrans);
+				pThis->CString_Tag = noneTrans;
+			}
 
 			pThis->UpdateData(FALSE);
 		}
@@ -83,3 +95,18 @@ DEFINE_HOOK(4E7900, CTeamTypes_OnCBCurrentTeamSelectChanged, 7)
 
 	return 0x4E9B11;
 }
+
+// just avoid before writing tag
+//DEFINE_HOOK(4EFF8C, CTeamTypes_OnCBTagEditChanged, 5)
+//{
+//	GET(CTeamTypes*, pThis, ECX);
+//	
+//	ppmfc::CString noneTrans;
+//	Translations::GetTranslationItem("None", noneTrans);
+//
+//	// just "if" before assignment (sbww)
+//	if (pThis->CString_Tag == "None" || pThis->CString_Tag == noneTrans || pThis->CString_Tag.GetLength() == 0)
+//		return 0x4F019F;
+//
+//	return 0;  // still continue original process
+//}

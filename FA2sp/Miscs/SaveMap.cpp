@@ -14,6 +14,8 @@
 #include "../Algorithms/sha1.h"
 #include "../Algorithms/base64.h"
 
+#include "../Helpers/Encoding.h"
+
 #include <algorithm>
 #include <map>
 #include <sstream>
@@ -150,9 +152,10 @@ DEFINE_HOOK(428D97, CFinalSunDlg_SaveMap, 7)
             if (!strcmp(section.first, "Preview") || !strcmp(section.first, "PreviewPack"))
                 continue;
 
-            oss << "[" << section.first << "]\n";
+            oss << "[" << Encoding::Conversion(section.first, CP_ACP, CP_UTF8) << "]\n";
             for (auto& pair : section.second.GetEntities())
-                oss << pair.first << "=" << pair.second << "\n";
+                oss << Encoding::Conversion(pair.first, CP_ACP, CP_UTF8)
+                    << "=" << Encoding::Conversion(pair.second, CP_ACP, CP_UTF8) << "\n";
             oss << "\n";
         }
 

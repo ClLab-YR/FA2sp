@@ -125,3 +125,27 @@ DEFINE_HOOK(480880, INIClass_LoadTSINI_IncludeSupport_2, 5)
     }
     return 0;
 }
+
+#if 0
+#include "Encoding.h"
+
+DEFINE_HOOK(452EAC, INIClass_ParseINI_UTF8Support, 8)
+{
+    GET(char*, line, ECX);
+
+    if (auto pEnd = strchr(line, '\r'))
+        *pEnd = '\0';
+    if (auto pComment = strchr(line, ';'))
+        *pComment = '\0';
+
+    if (Encoding::IsTextUTF8(std::string(line)))
+    {
+        auto transcoded = Encoding::Conversion(line, CP_UTF8, CP_ACP);
+        int i;
+        for (i = 0; i < transcoded.size(); i++)
+            line[i] = transcoded[i];
+        line[i] = '\0';
+    }
+    return 0x452EFB;
+}
+#endif

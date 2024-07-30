@@ -29,31 +29,40 @@ bool Encoding::IsTextUTF8(const std::string& str)
     if (str.empty())
         return false;
 
-    int cnt = 0;
     bool isASCII = true;
 
-    for (int i = 0; i < str.length(); i++)
+    auto pre = [](unsigned char byte) -> int
     {
-        int chr = str[i];
+        unsigned char mask = 0x80;
+        int num = 0;
+        for (int i = 0; i < 8; i++) {   // O(n) per bit
+            if ((byte & mask) == mask) {
+                mask = mask >> 1;
+                num++;
+            }
+            else break;
+        }
+        return num;
+    };
 
-        if ((chr & 0x80) == 0)
+    for (int num = 0, i = 0; i < str.length(); )  // O(n) per byte
+    {
+        if ((str[i] & 0x80) == 0) {
+            i++;
             continue;
+        }
         isASCII = false;
-
-        if (!cnt)
-        {
-            if ((chr >> 5) == 0b110)        cnt = 1;
-            else if ((chr >> 4) == 0b1110)  cnt = 2;
-            else if ((chr >> 3) == 0b11110) cnt = 3;
-            else if ((chr >> 7) != 0)       return false;
-            else {
-                if ((chr >> 6) != 0b10)     return false;
-                cnt--;
+        if ((num = pre(str[i])) > 2) {
+            i++;
+            for (int j = 0; j < num - 1; j++) {
+                if ((str[i] & 0xc0) != 0x80)
+                    return false;
+                i++;
             }
         }
+        else return false;
     }
-
-    return !isASCII && cnt == 0;
+    return !isASCII;
 }
 
 int CINIExt::ParseINI_UTF8(const char* filename)

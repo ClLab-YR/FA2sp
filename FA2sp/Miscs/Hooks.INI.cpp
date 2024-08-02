@@ -3,6 +3,7 @@
 #include <map>
 #include <CLoading.h>
 
+#include "../Helpers/Encoding.h"
 #include "../Helpers/STDHelpers.h"
 #include "../FA2sp.h"
 
@@ -126,10 +127,7 @@ DEFINE_HOOK(480880, INIClass_LoadTSINI_IncludeSupport_2, 5)
     return 0;
 }
 
-#if 0
-#include "Encoding.h"
-
-DEFINE_HOOK(452EAC, INIClass_ParseINI_UTF8Support, 8)
+DEFINE_HOOK(452EAC, INIClass_ParseINI_UTF8Support, 5)
 {
     GET(char*, line, ECX);
 
@@ -137,8 +135,7 @@ DEFINE_HOOK(452EAC, INIClass_ParseINI_UTF8Support, 8)
         *pEnd = '\0';
     if (auto pComment = strchr(line, ';'))
         *pComment = '\0';
-
-    if (Encoding::IsTextUTF8(std::string(line)))
+    if (Encoding::IsTextUTF8(line))
     {
         auto transcoded = Encoding::Conversion(line, CP_UTF8, CP_ACP);
         int i;
@@ -148,4 +145,3 @@ DEFINE_HOOK(452EAC, INIClass_ParseINI_UTF8Support, 8)
     }
     return 0x452EFB;
 }
-#endif

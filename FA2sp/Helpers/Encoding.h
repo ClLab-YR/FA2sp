@@ -34,9 +34,3 @@ namespace Encoding {
 
     bool IsTextUTF8(const std::string& str);
 }
-
-class CINIExt : public CINI
-{
-public:
-    int ParseINI_UTF8(const char* filename);
-};

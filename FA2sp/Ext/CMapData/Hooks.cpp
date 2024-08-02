@@ -5,7 +5,6 @@
 #include "../../FA2sp.h"
 #include "../../Helpers/TheaterHelpers.h"
 #include "../../Helpers/STDHelpers.h"
-#include "../../Helpers/Encoding.h"
 
 #include <Miscs/Miscs.h>
 
@@ -98,26 +97,6 @@ DEFINE_HOOK(49DFB4, CMapData_LoadMap_InvalidTheater, 6)
     }
 
     return 0x49EDD9;
-}
-
-DEFINE_HOOK(49D63F, CMapData_LoadMap_UTF8Support, 5)
-{
-    GET(CINIExt*, pMapFile, ECX);
-    GET(const char**, pMapPath, ESP);
-    //pMapFile->ClearAndLoad(*pMapPath, unused);
-
-    auto clearAndLoad = [&](const char* path) -> int
-    {
-        pMapFile->Dict.clear();
-        if (*path == NULL)
-            return 1;
-        strcpy_s(pMapFile->Path, path);
-        return pMapFile->ParseINI_UTF8(path);
-    };
-
-    clearAndLoad(*pMapPath);
-
-    return 0x49D644;
 }
 
 #define DEFINE_THEATER_NAME_FIX(addr, name, reg) \

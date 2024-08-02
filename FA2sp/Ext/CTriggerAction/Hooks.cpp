@@ -46,6 +46,7 @@ DEFINE_HOOK(4F6A97, CTriggerAction_OnCBActionTypeEditChanged_DescFix, 5)
 {
     REF_STACK(ppmfc::CString, lpDesc, STACK_OFFS(0x1B8, 0x140));
 
+    lpDesc.Replace("\\r", "\r");
     lpDesc.Replace("\\n", "\n");
     lpDesc.Replace("\\t", "\t");
 
